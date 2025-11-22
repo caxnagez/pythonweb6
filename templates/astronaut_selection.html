@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Отбор астронавтов{% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="post">
+        <div class="mb-3">
+            <label for="surname" class="form-label">Фамилия</label>
+            <input type="text" class="form-control" id="surname" name="surname" required>
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label">Имя</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="education" class="form-label">Образование</label>
+            <select class="form-select" id="education" name="education">
+                <option value="secondary">Среднее</option>
+                <option value="specialized_secondary">Среднее специальное</option>
+                <option value="higher">Высшее</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="profession" class="form-label">Профессия</label>
+            <select class="form-select" id="profession" name="profession">
+                {% for prof in professions %}
+                    <option value="{{ prof }}">{{ prof.title() }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <fieldset class="mb-3">
+            <legend class="col-form-label">Пол</legend>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" id="male" value="male" required>
+                <label class="form-check-label" for="male">Мужской</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" id="female" value="female" required>
+                <label class="form-check-label" for="female">Женский</label>
+            </div>
+        </fieldset>
+
+        <div class="mb-3">
+            <label for="motivation" class="form-label">Почему вы хотите принять участие в миссии?</label>
+            <textarea class="form-control" id="motivation" name="motivation" rows="3" required></textarea>
+        </div>
+
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="ready" name="ready">
+            <label class="form-check-label" for="ready">Готовы остаться на Марсе?</label>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Результаты отбора{% endblock %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-body">
+            <h2>Результаты отбора</h2>
+            <p><strong>Кандидат:</strong> {{ nickname }}</p>
+            <p><strong>Этап отбора:</strong> {{ level }}</p>
+            <p><strong>Рейтинг:</strong> {{ rating }}</p>
+            <div class="alert alert-success" role="alert">
+                Поздравляем! Вы успешно прошли отбор.
+            </div>
+        </div>
+    </div>
+{% endblock %}

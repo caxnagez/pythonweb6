@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Фото {{ nickname }}{% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ 'danger' if category == 'error' else 'success' }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <h2>Загрузка фото для {{ nickname }}</h2>
+    <form method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="photo" class="form-label">Выберите фото</label>
+            <input class="form-control" type="file" id="photo" name="photo" accept="image/*" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+
+    {% if filepath %}
+        <h3 class="mt-4">Ваше фото:</h3>
+        <img src="{{ filepath }}" class="img-thumbnail" alt="Фото {{ nickname }}">
+    {% endif %}
+{% endblock %}
